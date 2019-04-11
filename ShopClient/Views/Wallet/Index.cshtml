@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 style="font-family: Script MT">Your Payment Methods</h1>
+
+<ul>
+    @if (@Model.Capacity == 0)
+    {
+        <li style="font-family: Script MT"> Please Add a payment method </li>
+    }
+    else
+    { @foreach (var p in @Model)
+       {
+            <li style="font-family: Script MT"> @p.CardNum </li>
+       }
+    }
+</ul>
+
+<a style="font-family: Script MT" class="btn btn-outline-primary" asp-controller="wallet" asp-action="Create">Add PaymentMethod</a>

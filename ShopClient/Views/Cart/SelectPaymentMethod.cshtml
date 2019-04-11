@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "SelectPaymentMethod";
+}
+@inject ShopClient.Models.Clients.UserClient userclient
+
+@if (userclient.GetCurrentUser().GetPaymentMethods().Capacity != 0)
+{
+    <h1>Please select your Payment Method</h1>
+    <br />
+    <form method="post">
+        <div class="form-group">
+            <ul>
+                @foreach (var py in userclient.GetCurrentUser().GetPaymentMethods())
+                {
+                    <li>
+                        <label><input name="cardNum" type="radio" value="@py.CardNum" />@py.CardNum</label>
+                    </li>
+                }
+            </ul>
+
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-outline-danger" formaction="/Order/CreateOrderAsync">Checkout</button>
+        </div>
+    </form>
+}
+else
+{
+    <h1>Please Add a payment method</h1>
+    <a class="btn-outline-primary " asp-controller="wallet" asp-action="Create"> Add PaymentMethod</a>
+}
